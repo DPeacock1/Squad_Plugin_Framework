@@ -2,6 +2,7 @@
 This framework introduces mod cross-compatibility to Squad. Traditionally, Squad mods are compartmentalised into 'layers', restricting mods to new maps or total gameplay overhauls. To make mods compatible, a modder would have to provide source files to other modders, which would have to be hard referenced in other mods. This is an unsustainable approach and causes dependency hell: Mod B referencing an outdated version of Mod A would cause both Mod A and Mod B to crash.
 This framework attempts to overcome these issues by standardising a mod asset structure as plugins. These plugins can then be loaded into levels at runtime, without any need for hard referencing other mods. Using UE4's asset registry, a plugin manager can fetch any plugins installed on a client/server and add these to the level.
 This project is fully open source: https://github.com/Dan186D/Squad_Plugin_Framework
+
 Provided Plugin Classes
 SquadPlugin_C (ABSTRACT) inherits SQPrimaryData: The base plugin class. Includes an optional display name for UI purposes.
 SquadPlugin_Gamemode_C inherits SquadPlugin_C: Stores a soft class reference to a BP_GameMode, allowing any gamemode – including all of its custom classes e.g. player controller, hud, rulesets – to be loaded into a generic layer. Only one gamemode can be used at a time, so treat the gamemode as the base experience you’re looking for, and other plugins as optional extras.
