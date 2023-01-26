@@ -1,4 +1,7 @@
 # Squad Plugin Framework
+
+**Any mods using Squad_Plugin_Framework must not edit the files, only reference the mod's classes, and set Squad_Plugin_Framework as a required mod on Steam Workshop**
+
 This framework introduces mod cross-compatibility to Squad. Traditionally, Squad mods are compartmentalised into 'layers', restricting mods to new maps or total gameplay overhauls. To make mods compatible, a modder would have to provide source files to other modders, which would have to be hard referenced in other mods. This is an unsustainable approach and causes dependency hell: Mod B referencing an outdated version of Mod A would cause both Mod A and Mod B to crash.
 
 This framework attempts to overcome these issues by standardising a mod asset structure as plugins. These plugins can then be loaded into levels at runtime, without any need for hard referencing other mods. Using UE4's asset registry, a plugin manager can fetch any plugins installed on a client/server and add these to the level.
