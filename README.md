@@ -5,25 +5,31 @@ This framework attempts to overcome these issues by standardising a mod asset st
 
 This project is fully open source: https://github.com/Dan186D/Squad_Plugin_Framework
 
-Provided Plugin Classes
+## Provided Plugin Classes
 
-SquadPlugin_C (ABSTRACT) inherits SQPrimaryData: The base plugin class. Includes an optional display name for UI purposes.
+### SquadPlugin_C (ABSTRACT) inherits SQPrimaryData
+The base plugin class. Includes an optional display name for UI purposes.
 
-SquadPlugin_Gamemode_C inherits SquadPlugin_C: Stores a soft class reference to a BP_GameMode, allowing any gamemode – including all of its custom classes e.g. player controller, hud, rulesets – to be loaded into a generic layer. Only one gamemode can be used at a time, so treat the gamemode as the base experience you’re looking for, and other plugins as optional extras.
+### SquadPlugin_Gamemode_C inherits SquadPlugin_C
+Stores a soft class reference to a BP_GameMode, allowing any gamemode – including all of its custom classes e.g. player controller, hud, rulesets – to be loaded into a generic layer. Only one gamemode can be used at a time, so treat the gamemode as the base experience you’re looking for, and other plugins as optional extras.
 
-SquadPlugin_Additional_C (ABSTRACT) inherits SquadPlugin_C: A parent class for any plugins which can be loaded additionally to a gamemode.
+### SquadPlugin_Additional_C (ABSTRACT) inherits SquadPlugin_C
+A parent class for any plugins which can be loaded additionally to a gamemode.
 
-SquadPlugin_Ruleset_C inherits SquadPlugin_Additional_C: Stores a soft class reference to a SP_RulesetBP, allowing additional rulesets to be loaded into a generic layer. Rulesets are a proprietary OWI class which can be used as gameplay modifiers and mutators, including events for when players spawn and die etc.
+### SquadPlugin_Ruleset_C inherits SquadPlugin_Additional_C
+Stores a soft class reference to a SP_RulesetBP, allowing additional rulesets to be loaded into a generic layer. Rulesets are a proprietary OWI class which can be used as gameplay modifiers and mutators, including events for when players spawn and die etc.
 
-SquadPlugin_Replicated_C (ABSTRACT) inherits SquadPlugin_Additional_C: A parent class for any plugins which can be loaded on the client and/or the server. Stores a SP_PluginType enum stating how it should be loaded: only on clients, clients and the server, or just the server (which could then also replicate the spawned class to clients for networking purposes).
+### SquadPlugin_Replicated_C (ABSTRACT) inherits SquadPlugin_Additional_C
+A parent class for any plugins which can be loaded on the client and/or the server. Stores a SP_PluginType enum stating how it should be loaded: only on clients, clients and the server, or just the server (which could then also replicate the spawned class to clients for networking purposes).
 
-SquadPlugin_Actor_C inherits SquadPlugin_Replicated_C: Stores a soft class reference to an Actor, allowing actors to be spawned into the world. This actor could be used as a manager which handles gameplay tasks and adds new features. For example, this actor could have a post process component with a night vision filter, which is toggled via a keyboard input. This would allow night vision to be loaded into any mod as a plugin.
+### SquadPlugin_Actor_C inherits SquadPlugin_Replicated_C
+Stores a soft class reference to an Actor, allowing actors to be spawned into the world. This actor could be used as a manager which handles gameplay tasks and adds new features. For example, this actor could have a post process component with a night vision filter, which is toggled via a keyboard input. This would allow night vision to be loaded into any mod as a plugin.
 
-Rulesets
+## Rulesets
 
 Squad does not currently support adding rulesets at runtime, so this framework provides a fake ruleset class, SP_RulesetBP, which is identical to a Squad ruleset. A SP_RulesetManager is a wrapper Squad ruleset that contains a list of the plugin SP_RulesetBPs. This SP_RulesetManager is then added as a map ruleset (in the level’s world settings), and will translate any Squad ruleset events to the plugin SP_RulesetBPs.
 
-Template Plugin Loader
+## Template Plugin Loader
 
 This framework includes a template SquadPlugin Manager, SP_Manager. A modder can implement this manager however they want, loading the standardised SquadPlugin classes using the asset registry, but this is a useful guide.
 
